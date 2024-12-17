@@ -184,7 +184,7 @@ import {
   import config from "@config";
   import { HashRouter } from "mee-components";
   import { addFormListeners, validateForm } from "@utils/validation";
-  import { getCookie, setCookie } from "@utils/cookie";
+  import { getCookie } from "@utils/cookie";
   const initSignUp = () => {
     const user = getCookie("user");
     if (user) {
@@ -296,8 +296,6 @@ import {
     const submitForm4 = async (inputs: NodeListOf<HTMLInputElement>) => {
       const formValid = validateForm(inputs);
       if (formValid) {
-        setCookie("user", data.email);
-        window.location.hash = "#connections";
         const passwordData = Array.from(inputs).reduce(
           (acc, input) => ({ ...acc, [input.id]: input.value }),
           { sign_up_tel: "" }

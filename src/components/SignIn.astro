@@ -93,7 +93,7 @@ import {
 
 <script>
   import config from "@config";
-  import { getCookie, setCookie } from "@utils/cookie";
+  import { getCookie } from "@utils/cookie";
   import { HashRouter } from "mee-components";
 
   const initSignIn = () => {
@@ -149,8 +149,6 @@ import {
       }
     };
     const submitForm2 = async (inputs: NodeListOf<HTMLInputElement>) => {
-      setCookie("user", data.email);
-      window.location.hash = "#connections";
       const passwordData = Array.from(inputs).reduce(
         (acc, input) => ({ ...acc, [input.id]: input.value }),
         { password: "" }
