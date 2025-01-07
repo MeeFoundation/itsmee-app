@@ -133,13 +133,13 @@ import { Button, Loading, Input, Avatar } from "mee-components";
 </div>
 
 <script>
-  import { getCookie, deleteCookie } from "@utils/cookie";
+  import config from "@config";
   import type { Connection } from "@utils/types";
   import { getConnections, getUser } from "api/api";
-  import { AvatarHelper, HashRouter } from "mee-components";
+  import { AvatarHelper, HashRouter, Cookie } from "mee-components";
 
   const initConnections = async () => {
-    const user = getCookie("user");
+    const user = Cookie.getCookie("user");
     if (!user) {
       window.location.hash = "#sign-in";
     }
@@ -177,7 +177,7 @@ import { Button, Loading, Input, Avatar } from "mee-components";
       toggleProfile();
     });
     signOutButton?.addEventListener("click", () => {
-      deleteCookie("user");
+      Cookie.deleteCookie("user", config.cookieDomain);
       window.location.hash = "#sign-in";
     });
     document.addEventListener("click", (e) => {

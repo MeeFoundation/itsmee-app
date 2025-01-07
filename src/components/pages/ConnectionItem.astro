@@ -54,12 +54,11 @@ import TextValue from "@components/TextValue.astro";
 </main>
 
 <script>
-  import { HashRouter } from "mee-components";
+  import { HashRouter, Cookie } from "mee-components";
   import { getConnection } from "api/api";
-  import { getCookie } from "@utils/cookie";
 
   const updateData = async () => {
-    const user = getCookie("user");
+    const user = Cookie.getCookie("user");
     if (!user) {
       window.location.hash = "#sign-in";
     }

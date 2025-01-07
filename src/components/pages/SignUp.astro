@@ -5,19 +5,17 @@ import {
   ButtonLink,
   Input,
   PasswordInput,
-  ThemeSelect,
 } from "mee-components";
 ---
 
 <main
   class="min-w-screen relative flex min-h-screen flex-col items-center justify-center bg-auth-gradient dark:bg-auth-gradient-dark"
 >
-  <div class="absolute top-2 z-70"><ThemeSelect /></div>
   <div
-    class="relative z-50 flex h-full max-w-130 flex-col items-center justify-center gap-6 p-6 pt-10"
+    class="relative z-50 flex h-full w-full max-w-130 flex-col items-center justify-center gap-6 p-6 pt-10"
   >
     <div
-      class="flex flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-2 md:w-130 dark:border dark:border-grey-800 dark:bg-grey-900"
+      class="flex w-full flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-2 dark:border dark:border-grey-800 dark:bg-grey-900"
     >
       <!-- <AuthForm
           id="zero-form"
@@ -182,11 +180,10 @@ import {
 
 <script>
   import config from "@config";
-  import { HashRouter } from "mee-components";
-  import { addFormListeners, validateForm } from "@utils/validation";
-  import { getCookie } from "@utils/cookie";
+  import { HashRouter, Validation, Cookie } from "mee-components";
+
   const initSignUp = () => {
-    const user = getCookie("user");
+    const user = Cookie.getCookie("user");
     if (user) {
       window.location.hash = "#connections";
     }
@@ -260,7 +257,7 @@ import {
     });
 
     const submitForm1 = (inputs: NodeListOf<HTMLInputElement>) => {
-      const formValid = validateForm(inputs);
+      const formValid = Validation.validateForm(inputs);
       if (formValid) {
         const emailData = Array.from(inputs).reduce(
           (acc, input) => ({ ...acc, [input.id]: input.value }),
@@ -272,7 +269,7 @@ import {
     };
 
     const submitForm2 = (inputs: NodeListOf<HTMLInputElement>) => {
-      const formValid = validateForm(inputs);
+      const formValid = Validation.validateForm(inputs);
       if (formValid) {
         const passwordData = Array.from(inputs).reduce(
           (acc, input) => ({ ...acc, [input.id]: input.value }),
@@ -283,7 +280,7 @@ import {
       }
     };
     const submitForm3 = (inputs: NodeListOf<HTMLInputElement>) => {
-      const formValid = validateForm(inputs);
+      const formValid = Validation.validateForm(inputs);
       if (formValid) {
         const passwordData = Array.from(inputs).reduce(
           (acc, input) => ({ ...acc, [input.id]: input.value }),
@@ -294,7 +291,7 @@ import {
       }
     };
     const submitForm4 = async (inputs: NodeListOf<HTMLInputElement>) => {
-      const formValid = validateForm(inputs);
+      const formValid = Validation.validateForm(inputs);
       if (formValid) {
         const passwordData = Array.from(inputs).reduce(
           (acc, input) => ({ ...acc, [input.id]: input.value }),
@@ -338,7 +335,7 @@ import {
 
     if (signUpForm) {
       const inputs = signUpForm.querySelectorAll("input");
-      addFormListeners(inputs);
+      Validation.addFormListeners(inputs);
       signUpButton?.addEventListener("click", () => {
         submitForm1(inputs);
       });
@@ -350,7 +347,7 @@ import {
 
     if (signUpForm2) {
       const inputs = signUpForm2.querySelectorAll("input");
-      addFormListeners(inputs);
+      Validation.addFormListeners(inputs);
       checkCodeButton?.addEventListener("click", () => {
         submitForm2(inputs);
       });
@@ -361,7 +358,7 @@ import {
     }
     if (signUpForm3) {
       const inputs = signUpForm3.querySelectorAll("input");
-      addFormListeners(inputs);
+      Validation.addFormListeners(inputs);
       connectButton?.addEventListener("click", () => {
         submitForm3(inputs);
       });
@@ -372,7 +369,7 @@ import {
     }
     if (signUpForm4) {
       const inputs = signUpForm4.querySelectorAll("input");
-      addFormListeners(inputs);
+      Validation.addFormListeners(inputs);
       sendButton?.addEventListener("click", () => {
         submitForm4(inputs);
       });
