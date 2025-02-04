@@ -180,203 +180,202 @@ import {
 
 <script>
   import config from "@config";
-  import { HashRouter, Validation, Cookie } from "mee-components";
+  import { checkUser } from "@utils/common";
+  import { HashRouter, Validation } from "mee-components";
 
   const initSignUp = () => {
-    const user = Cookie.getCookie("user");
-    if (user) {
-      window.location.hash = "#connections";
-    }
-    const signUpForm = document.getElementById(
-      "sign-up-form"
-    ) as HTMLFormElement | null;
-    const signUpForm2 = document.getElementById(
-      "sign-up-form-2"
-    ) as HTMLFormElement | null;
-    const signUpForm3 = document.getElementById(
-      "sign-up-form-3"
-    ) as HTMLFormElement | null;
-    const signUpForm4 = document.getElementById(
-      "sign-up-form-4"
-    ) as HTMLFormElement | null;
-    const signUpButton = document.getElementById("sign-up-button");
-    // const zeroForm = document.getElementById("zero-form");
-    const firstForm = document.getElementById("first-form");
-    const secondForm = document.getElementById("second-form");
-    const thirdForm = document.getElementById("third-form");
-    const fourthForm = document.getElementById("fourth-form");
-    const goBackButton = document.getElementById("go-back");
+    if (checkUser(true)) {
+      const signUpForm = document.getElementById(
+        "sign-up-form"
+      ) as HTMLFormElement | null;
+      const signUpForm2 = document.getElementById(
+        "sign-up-form-2"
+      ) as HTMLFormElement | null;
+      const signUpForm3 = document.getElementById(
+        "sign-up-form-3"
+      ) as HTMLFormElement | null;
+      const signUpForm4 = document.getElementById(
+        "sign-up-form-4"
+      ) as HTMLFormElement | null;
+      const signUpButton = document.getElementById("sign-up-button");
+      // const zeroForm = document.getElementById("zero-form");
+      const firstForm = document.getElementById("first-form");
+      const secondForm = document.getElementById("second-form");
+      const thirdForm = document.getElementById("third-form");
+      const fourthForm = document.getElementById("fourth-form");
+      const goBackButton = document.getElementById("go-back");
 
-    const checkCodeButton = document.getElementById("check-code");
-    const connectButton = document.getElementById("connect");
-    const sendButton = document.getElementById("send");
-    const policyBlock = document.getElementById("policy");
-    const navigationBlock = document.getElementById("navigation");
-    const hostedByBlock = document.getElementById("hosted-by");
-    const data = { email: "", password: "", verify_code: "", tel: "" };
+      const checkCodeButton = document.getElementById("check-code");
+      const connectButton = document.getElementById("connect");
+      const sendButton = document.getElementById("send");
+      const policyBlock = document.getElementById("policy");
+      const navigationBlock = document.getElementById("navigation");
+      const hostedByBlock = document.getElementById("hosted-by");
+      const data = { email: "", password: "", verify_code: "", tel: "" };
 
-    const changeForm = (
-      activeForm: HTMLElement | null,
-      nextForm: HTMLElement | null,
-      showNavigation?: boolean,
-      showPolicy?: boolean
-    ) => {
-      activeForm?.classList.remove("flex");
-      activeForm?.classList.add("hidden");
-      nextForm?.classList.add("flex");
-      nextForm?.classList.remove("hidden");
-      if (showPolicy) {
-        policyBlock?.classList.remove("hidden");
-        hostedByBlock?.classList.remove("hidden");
-      } else {
-        policyBlock?.classList.add("hidden");
-        hostedByBlock?.classList.add("hidden");
-      }
-      if (showNavigation) {
-        navigationBlock?.classList.remove("hidden");
-        navigationBlock?.classList.add("flex");
-      } else {
-        navigationBlock?.classList.remove("flex");
-        navigationBlock?.classList.add("hidden");
-      }
-    };
+      const changeForm = (
+        activeForm: HTMLElement | null,
+        nextForm: HTMLElement | null,
+        showNavigation?: boolean,
+        showPolicy?: boolean
+      ) => {
+        activeForm?.classList.remove("flex");
+        activeForm?.classList.add("hidden");
+        nextForm?.classList.add("flex");
+        nextForm?.classList.remove("hidden");
+        if (showPolicy) {
+          policyBlock?.classList.remove("hidden");
+          hostedByBlock?.classList.remove("hidden");
+        } else {
+          policyBlock?.classList.add("hidden");
+          hostedByBlock?.classList.add("hidden");
+        }
+        if (showNavigation) {
+          navigationBlock?.classList.remove("hidden");
+          navigationBlock?.classList.add("flex");
+        } else {
+          navigationBlock?.classList.remove("flex");
+          navigationBlock?.classList.add("hidden");
+        }
+      };
 
-    goBackButton?.addEventListener("click", () => {
-      // if (!firstForm?.classList.contains("hidden")) {
-      //   changeForm(firstForm, zeroForm, false, true);
-      // }
-      if (!secondForm?.classList.contains("hidden")) {
-        changeForm(secondForm, firstForm, false, true);
-      }
-      if (!thirdForm?.classList.contains("hidden")) {
-        changeForm(thirdForm, secondForm, true);
-      }
-      if (!fourthForm?.classList.contains("hidden")) {
-        changeForm(fourthForm, thirdForm, true);
-      }
-    });
+      goBackButton?.addEventListener("click", () => {
+        // if (!firstForm?.classList.contains("hidden")) {
+        //   changeForm(firstForm, zeroForm, false, true);
+        // }
+        if (!secondForm?.classList.contains("hidden")) {
+          changeForm(secondForm, firstForm, false, true);
+        }
+        if (!thirdForm?.classList.contains("hidden")) {
+          changeForm(thirdForm, secondForm, true);
+        }
+        if (!fourthForm?.classList.contains("hidden")) {
+          changeForm(fourthForm, thirdForm, true);
+        }
+      });
 
-    const submitForm1 = (inputs: NodeListOf<HTMLInputElement>) => {
-      const formValid = Validation.validateForm(inputs);
-      if (formValid) {
-        const emailData = Array.from(inputs).reduce(
-          (acc, input) => ({ ...acc, [input.id]: input.value }),
-          { sign_up_email: "" }
-        );
-        data.email = emailData.sign_up_email;
-        changeForm(firstForm, secondForm, true);
-      }
-    };
+      const submitForm1 = (inputs: NodeListOf<HTMLInputElement>) => {
+        const formValid = Validation.validateForm(inputs);
+        if (formValid) {
+          const emailData = Array.from(inputs).reduce(
+            (acc, input) => ({ ...acc, [input.id]: input.value }),
+            { sign_up_email: "" }
+          );
+          data.email = emailData.sign_up_email;
+          changeForm(firstForm, secondForm, true);
+        }
+      };
 
-    const submitForm2 = (inputs: NodeListOf<HTMLInputElement>) => {
-      const formValid = Validation.validateForm(inputs);
-      if (formValid) {
-        const passwordData = Array.from(inputs).reduce(
-          (acc, input) => ({ ...acc, [input.id]: input.value }),
-          { sign_up_verify_code: "" }
-        );
-        data.verify_code = passwordData.sign_up_verify_code;
-        changeForm(secondForm, thirdForm, true);
-      }
-    };
-    const submitForm3 = (inputs: NodeListOf<HTMLInputElement>) => {
-      const formValid = Validation.validateForm(inputs);
-      if (formValid) {
-        const passwordData = Array.from(inputs).reduce(
-          (acc, input) => ({ ...acc, [input.id]: input.value }),
-          { sign_up_password: "" }
-        );
-        data.password = passwordData.sign_up_password;
-        changeForm(thirdForm, fourthForm, true);
-      }
-    };
-    const submitForm4 = async (inputs: NodeListOf<HTMLInputElement>) => {
-      const formValid = Validation.validateForm(inputs);
-      if (formValid) {
-        const passwordData = Array.from(inputs).reduce(
-          (acc, input) => ({ ...acc, [input.id]: input.value }),
-          { sign_up_tel: "" }
-        );
-        data.tel = passwordData.sign_up_tel;
+      const submitForm2 = (inputs: NodeListOf<HTMLInputElement>) => {
+        const formValid = Validation.validateForm(inputs);
+        if (formValid) {
+          const passwordData = Array.from(inputs).reduce(
+            (acc, input) => ({ ...acc, [input.id]: input.value }),
+            { sign_up_verify_code: "" }
+          );
+          data.verify_code = passwordData.sign_up_verify_code;
+          changeForm(secondForm, thirdForm, true);
+        }
+      };
+      const submitForm3 = (inputs: NodeListOf<HTMLInputElement>) => {
+        const formValid = Validation.validateForm(inputs);
+        if (formValid) {
+          const passwordData = Array.from(inputs).reduce(
+            (acc, input) => ({ ...acc, [input.id]: input.value }),
+            { sign_up_password: "" }
+          );
+          data.password = passwordData.sign_up_password;
+          changeForm(thirdForm, fourthForm, true);
+        }
+      };
+      const submitForm4 = async (inputs: NodeListOf<HTMLInputElement>) => {
+        const formValid = Validation.validateForm(inputs);
+        if (formValid) {
+          const passwordData = Array.from(inputs).reduce(
+            (acc, input) => ({ ...acc, [input.id]: input.value }),
+            { sign_up_tel: "" }
+          );
+          data.tel = passwordData.sign_up_tel;
 
-        if (data && formValid) {
-          try {
-            const { auth_token } = await fetch(
-              `${config.backendUrl}/api/v1/user/register`,
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-              }
-            ).then((r) => r.json());
+          if (data && formValid) {
+            try {
+              const { auth_token } = await fetch(
+                `${config.backendUrl}/api/v1/user/register`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(data),
+                }
+              ).then((r) => r.json());
 
-            console.log("auth_token", auth_token);
-          } catch (e) {
-            console.error(e);
+              console.log("auth_token", auth_token);
+            } catch (e) {
+              console.error(e);
+            }
           }
         }
+      };
+      // const selectAccountType = (type: string) => {
+      //   accountType = type;
+      //   changeForm(zeroForm, firstForm, true);
+      // };
+      //
+      // if (chooseAccountTypeForm) {
+      //   const buttons = chooseAccountTypeForm.querySelectorAll(".account-type");
+      //   buttons?.forEach((button) => {
+      //     button.addEventListener("click", () => {
+      //       selectAccountType(button.id);
+      //     });
+      //   });
+      // }
+
+      if (signUpForm) {
+        const inputs = signUpForm.querySelectorAll("input");
+        Validation.addFormListeners(inputs);
+        signUpButton?.addEventListener("click", () => {
+          submitForm1(inputs);
+        });
+        signUpForm.onsubmit = (e) => {
+          e.preventDefault();
+          submitForm1(inputs);
+        };
       }
-    };
-    // const selectAccountType = (type: string) => {
-    //   accountType = type;
-    //   changeForm(zeroForm, firstForm, true);
-    // };
-    //
-    // if (chooseAccountTypeForm) {
-    //   const buttons = chooseAccountTypeForm.querySelectorAll(".account-type");
-    //   buttons?.forEach((button) => {
-    //     button.addEventListener("click", () => {
-    //       selectAccountType(button.id);
-    //     });
-    //   });
-    // }
 
-    if (signUpForm) {
-      const inputs = signUpForm.querySelectorAll("input");
-      Validation.addFormListeners(inputs);
-      signUpButton?.addEventListener("click", () => {
-        submitForm1(inputs);
-      });
-      signUpForm.onsubmit = (e) => {
-        e.preventDefault();
-        submitForm1(inputs);
-      };
-    }
-
-    if (signUpForm2) {
-      const inputs = signUpForm2.querySelectorAll("input");
-      Validation.addFormListeners(inputs);
-      checkCodeButton?.addEventListener("click", () => {
-        submitForm2(inputs);
-      });
-      signUpForm2.onsubmit = (e) => {
-        e.preventDefault();
-        submitForm2(inputs);
-      };
-    }
-    if (signUpForm3) {
-      const inputs = signUpForm3.querySelectorAll("input");
-      Validation.addFormListeners(inputs);
-      connectButton?.addEventListener("click", () => {
-        submitForm3(inputs);
-      });
-      signUpForm3.onsubmit = (e) => {
-        e.preventDefault();
-        submitForm3(inputs);
-      };
-    }
-    if (signUpForm4) {
-      const inputs = signUpForm4.querySelectorAll("input");
-      Validation.addFormListeners(inputs);
-      sendButton?.addEventListener("click", () => {
-        submitForm4(inputs);
-      });
-      signUpForm4.onsubmit = (e) => {
-        e.preventDefault();
-        submitForm4(inputs);
-      };
+      if (signUpForm2) {
+        const inputs = signUpForm2.querySelectorAll("input");
+        Validation.addFormListeners(inputs);
+        checkCodeButton?.addEventListener("click", () => {
+          submitForm2(inputs);
+        });
+        signUpForm2.onsubmit = (e) => {
+          e.preventDefault();
+          submitForm2(inputs);
+        };
+      }
+      if (signUpForm3) {
+        const inputs = signUpForm3.querySelectorAll("input");
+        Validation.addFormListeners(inputs);
+        connectButton?.addEventListener("click", () => {
+          submitForm3(inputs);
+        });
+        signUpForm3.onsubmit = (e) => {
+          e.preventDefault();
+          submitForm3(inputs);
+        };
+      }
+      if (signUpForm4) {
+        const inputs = signUpForm4.querySelectorAll("input");
+        Validation.addFormListeners(inputs);
+        sendButton?.addEventListener("click", () => {
+          submitForm4(inputs);
+        });
+        signUpForm4.onsubmit = (e) => {
+          e.preventDefault();
+          submitForm4(inputs);
+        };
+      }
     }
   };
 

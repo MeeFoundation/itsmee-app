@@ -91,114 +91,112 @@ import {
 
 <script>
   import config from "@config";
-  import { HashRouter, Cookie } from "mee-components";
+  import { checkUser } from "@utils/common";
+  import { HashRouter } from "mee-components";
 
   const initSignIn = () => {
-    const user = Cookie.getCookie("user");
+    if (checkUser(true)) {
+      const signInEmailForm = document.getElementById(
+        "sign-in-email-form"
+      ) as HTMLFormElement | null;
+      const signInPasswordForm = document.getElementById(
+        "sign-in-password-form"
+      ) as HTMLFormElement | null;
+      const loginButton = document.getElementById("login-button");
+      const signInEmail = document.getElementById("sign-in-email");
+      const signInPassword = document.getElementById("sign-in-password");
+      const signUpButton = document.getElementById("sign-up");
+      const goBackButton = document.getElementById("go-back");
+      const signInButton = document.getElementById("sign-in");
+      const policyBlock = document.getElementById("policy");
+      const hostedByBlock = document.getElementById("hosted-by");
+      const data = { email: "", password: "" };
 
-    if (user) {
-      window.location.hash = "#connections";
-    }
-    const signInEmailForm = document.getElementById(
-      "sign-in-email-form"
-    ) as HTMLFormElement | null;
-    const signInPasswordForm = document.getElementById(
-      "sign-in-password-form"
-    ) as HTMLFormElement | null;
-    const loginButton = document.getElementById("login-button");
-    const signInEmail = document.getElementById("sign-in-email");
-    const signInPassword = document.getElementById("sign-in-password");
-    const signUpButton = document.getElementById("sign-up");
-    const goBackButton = document.getElementById("go-back");
-    const signInButton = document.getElementById("sign-in");
-    const policyBlock = document.getElementById("policy");
-    const hostedByBlock = document.getElementById("hosted-by");
-    const data = { email: "", password: "" };
-
-    const changeForm = (
-      activeForm: HTMLElement | null,
-      nextForm: HTMLElement | null,
-      showPolicy?: boolean
-    ) => {
-      activeForm?.classList.remove("flex");
-      activeForm?.classList.add("hidden");
-      nextForm?.classList.add("flex");
-      nextForm?.classList.remove("hidden");
-      if (showPolicy) {
-        policyBlock?.classList.remove("hidden");
-        hostedByBlock?.classList.remove("hidden");
-        signUpButton?.classList.remove("hidden");
-        goBackButton?.classList.add("hidden");
-      } else {
-        policyBlock?.classList.add("hidden");
-        hostedByBlock?.classList.add("hidden");
-        signUpButton?.classList.add("hidden");
-        goBackButton?.classList.remove("hidden");
-      }
-    };
-    const submitForm1 = (inputs: NodeListOf<HTMLInputElement>) => {
-      const emailData = Array.from(inputs).reduce(
-        (acc, input) => ({ ...acc, [input.id]: input.value }),
-        { email: "" }
-      );
-      data.email = emailData.email;
-      if (data.email) {
-        changeForm(signInEmail, signInPassword);
-      }
-    };
-    const submitForm2 = async (inputs: NodeListOf<HTMLInputElement>) => {
-      const passwordData = Array.from(inputs).reduce(
-        (acc, input) => ({ ...acc, [input.id]: input.value }),
-        { password: "" }
-      );
-      data.password = passwordData.password;
-
-      if (data.password && data.email) {
-        try {
-          const { auth_token } = await fetch(
-            config.backendUrl + "/api/v1/users/login",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                email: data.email,
-                password: data.password,
-              }),
-            }
-          ).then((r) => r.json());
-
-          console.log("auth_token", auth_token);
-        } catch (e) {
-          console.error(e);
+      const changeForm = (
+        activeForm: HTMLElement | null,
+        nextForm: HTMLElement | null,
+        showPolicy?: boolean
+      ) => {
+        activeForm?.classList.remove("flex");
+        activeForm?.classList.add("hidden");
+        nextForm?.classList.add("flex");
+        nextForm?.classList.remove("hidden");
+        if (showPolicy) {
+          policyBlock?.classList.remove("hidden");
+          hostedByBlock?.classList.remove("hidden");
+          signUpButton?.classList.remove("hidden");
+          goBackButton?.classList.add("hidden");
+        } else {
+          policyBlock?.classList.add("hidden");
+          hostedByBlock?.classList.add("hidden");
+          signUpButton?.classList.add("hidden");
+          goBackButton?.classList.remove("hidden");
         }
+      };
+      const submitForm1 = (inputs: NodeListOf<HTMLInputElement>) => {
+        const emailData = Array.from(inputs).reduce(
+          (acc, input) => ({ ...acc, [input.id]: input.value }),
+          { email: "" }
+        );
+        data.email = emailData.email;
+        if (data.email) {
+          changeForm(signInEmail, signInPassword);
+        }
+      };
+      const submitForm2 = async (inputs: NodeListOf<HTMLInputElement>) => {
+        const passwordData = Array.from(inputs).reduce(
+          (acc, input) => ({ ...acc, [input.id]: input.value }),
+          { password: "" }
+        );
+        data.password = passwordData.password;
+
+        if (data.password && data.email) {
+          try {
+            const { auth_token } = await fetch(
+              config.backendUrl + "/api/v1/users/login",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  email: data.email,
+                  password: data.password,
+                }),
+              }
+            ).then((r) => r.json());
+
+            console.log("auth_token", auth_token);
+          } catch (e) {
+            console.error(e);
+          }
+        }
+      };
+
+      if (signInEmailForm) {
+        const inputs = signInEmailForm.querySelectorAll("input");
+        loginButton?.addEventListener("click", () => {
+          submitForm1(inputs);
+        });
+        signInEmailForm.onsubmit = (e) => {
+          e.preventDefault();
+          submitForm1(inputs);
+        };
       }
-    };
 
-    if (signInEmailForm) {
-      const inputs = signInEmailForm.querySelectorAll("input");
-      loginButton?.addEventListener("click", () => {
-        submitForm1(inputs);
-      });
-      signInEmailForm.onsubmit = (e) => {
-        e.preventDefault();
-        submitForm1(inputs);
-      };
-    }
-
-    if (signInPasswordForm) {
-      const inputs = signInPasswordForm.querySelectorAll("input");
-      goBackButton?.addEventListener("click", () => {
-        changeForm(signInPassword, signInEmail, true);
-      });
-      signInButton?.addEventListener("click", async () => {
-        submitForm2(inputs);
-      });
-      signInPasswordForm.onsubmit = (e) => {
-        e.preventDefault();
-        submitForm2(inputs);
-      };
+      if (signInPasswordForm) {
+        const inputs = signInPasswordForm.querySelectorAll("input");
+        goBackButton?.addEventListener("click", () => {
+          changeForm(signInPassword, signInEmail, true);
+        });
+        signInButton?.addEventListener("click", async () => {
+          submitForm2(inputs);
+        });
+        signInPasswordForm.onsubmit = (e) => {
+          e.preventDefault();
+          submitForm2(inputs);
+        };
+      }
     }
   };
 

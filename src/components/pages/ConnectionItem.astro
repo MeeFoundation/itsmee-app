@@ -54,64 +54,65 @@ import TextValue from "@components/TextValue.astro";
 </main>
 
 <script>
-  import { HashRouter, Cookie } from "mee-components";
+  import { HashRouter } from "mee-components";
+  import { checkUser } from "@utils/common";
   import { getConnection } from "api/api";
 
   const updateData = async () => {
-    const user = Cookie.getCookie("user");
-    if (!user) {
-      window.location.hash = "#sign-in";
-    }
-    const connectionName = document.getElementById(
-      "connection-name"
-    ) as HTMLDivElement | null;
-    const nameInput = document.getElementById(
-      "name"
-    ) as HTMLInputElement | null;
-    const urlInput = document.getElementById("url") as HTMLInputElement | null;
-    const switcher = document.getElementById(
-      "enabled-switch"
-    ) as HTMLInputElement | null;
+    if (checkUser()) {
+      const connectionName = document.getElementById(
+        "connection-name"
+      ) as HTMLDivElement | null;
+      const nameInput = document.getElementById(
+        "name"
+      ) as HTMLInputElement | null;
+      const urlInput = document.getElementById(
+        "url"
+      ) as HTMLInputElement | null;
+      const switcher = document.getElementById(
+        "enabled-switch"
+      ) as HTMLInputElement | null;
 
-    const connectionDataElement = document.getElementById("connection-data");
-    const loading = document.getElementById("connection-loading");
+      const connectionDataElement = document.getElementById("connection-data");
+      const loading = document.getElementById("connection-loading");
 
-    const saveConnectionButton = document.getElementById("save-connection");
-    saveConnectionButton?.addEventListener("click", () => {
-      window.location.href = "";
-    });
+      const saveConnectionButton = document.getElementById("save-connection");
+      saveConnectionButton?.addEventListener("click", () => {
+        window.location.href = "";
+      });
 
-    loading?.classList.remove("hidden");
-    connectionDataElement?.classList.add("hidden");
-    connectionDataElement?.classList.remove("flex");
+      loading?.classList.remove("hidden");
+      connectionDataElement?.classList.add("hidden");
+      connectionDataElement?.classList.remove("flex");
 
-    if (connectionName) {
-      connectionName.innerHTML = "";
-    }
-    const id = document.documentElement.dataset.connectionId;
+      if (connectionName) {
+        connectionName.innerHTML = "";
+      }
+      const id = document.documentElement.dataset.connectionId;
 
-    if (id != "") {
-      const connectionData = await getConnection(Number(id));
+      if (id != "") {
+        const connectionData = await getConnection(Number(id));
 
-      if (connectionData) {
-        connectionDataElement?.classList.remove("hidden");
-        connectionDataElement?.classList.add("flex");
-        loading?.classList.add("hidden");
+        if (connectionData) {
+          connectionDataElement?.classList.remove("hidden");
+          connectionDataElement?.classList.add("flex");
+          loading?.classList.add("hidden");
 
-        if (connectionName) {
-          connectionName.innerHTML = connectionData.name;
-        }
+          if (connectionName) {
+            connectionName.innerHTML = connectionData.name;
+          }
 
-        if (nameInput) {
-          nameInput.value = connectionData.name;
-        }
+          if (nameInput) {
+            nameInput.value = connectionData.name;
+          }
 
-        if (urlInput) {
-          urlInput.value = connectionData.image_url ?? "";
-        }
+          if (urlInput) {
+            urlInput.value = connectionData.image_url ?? "";
+          }
 
-        if (switcher) {
-          switcher.checked = connectionData.enabled;
+          if (switcher) {
+            switcher.checked = connectionData.enabled;
+          }
         }
       }
     }

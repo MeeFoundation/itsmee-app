@@ -4,6 +4,7 @@ import IndexPage from "@components/pages/IndexPage.astro";
 import ConnectionsList from "@components/pages/ConnectionsList.astro";
 import ConnectionItem from "@components/pages/ConnectionItem.astro";
 import SignIn from "@components/pages/SignIn.astro";
+import SignUpSoon from "@components/pages/SignUpSoon.astro";
 import SignUp from "@components/pages/SignUp.astro";
 import RestorePassword from "@components/pages/RestorePassword.astro";
 import ForgotPassword from "@components/pages/ForgotPassword.astro";
@@ -27,6 +28,7 @@ import { Route } from "mee-components";
   >
   <Route id="sign-up" route="sign-up" withoutDarkTheme={true}><SignUp /></Route>
   <Route id="sign-in" route="sign-in" withoutDarkTheme={true}><SignIn /></Route>
+  <Route id="sign-up-soon" route="sign-up-soon" withoutDarkTheme={true}><SignUpSoon /></Route>
   <Route id="restore-password" route="restore-password" withoutDarkTheme={true}
     ><RestorePassword /></Route
   >

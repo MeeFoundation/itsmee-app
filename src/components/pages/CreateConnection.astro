@@ -67,17 +67,16 @@ import { Button, Input } from "mee-components";
 </Layout>
 
 <script>
-  import { HashRouter, Cookie } from "mee-components";
+  import { checkUser } from "@utils/common";
+  import { HashRouter } from "mee-components";
 
   const initCreateCollection = () => {
-    const user = Cookie.getCookie("user");
-    if (!user) {
-      window.location.hash = "#sign-in";
+    if (checkUser()) {
+      const saveAppButton = document.getElementById("save-connection");
+      saveAppButton?.addEventListener("click", () => {
+        window.location.href = "/connections";
+      });
     }
-    const saveAppButton = document.getElementById("save-connection");
-    saveAppButton?.addEventListener("click", () => {
-      window.location.href = "/connections";
-    });
   };
 
   HashRouter.initPageListeners(

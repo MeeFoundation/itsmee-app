@@ -1,0 +1,45 @@
+---
+import { AuthForm } from "mee-components";
+---
+
+<main
+  class="min-w-screen relative flex min-h-screen flex-col items-center justify-center bg-auth-gradient dark:bg-auth-gradient-dark"
+>
+  <div
+    class="relative z-50 flex h-full w-full max-w-130 flex-col items-center justify-center gap-6 p-6 pt-10"
+  >
+    <div
+      class="flex w-full flex-col items-center justify-between rounded-2xl bg-white px-0 pb-0 pt-16 shadow-2 dark:border dark:border-grey-800 dark:bg-grey-900"
+    >
+      <AuthForm
+        id="sign-in-email"
+        title="Registration will be available soon"
+        subtitle=`<a href="https://mee.foundation/about/index.html#waitlist" class="text-brand-600 underline">Subscribe</a> to our newsletter.`
+        formId="sign-in-email-form"
+      />
+    </div>
+    <div
+      class="text-center text-xs leading-4 tracking-0.02 text-grey-700 dark:text-grey-300"
+      id="hosted-by"
+    >
+      Hosted by <a
+        href="https://mee.foundation/"
+        target="_blank"
+        class="text-brand-700 underline dark:text-brand-300"
+        >The Mee Foundation</a
+      >, a non-profit that works on behalf of all Mee users and never shares
+      your data with anyone.
+    </div>
+  </div>
+</main>
+
+<script>
+  import { checkUser } from "@utils/common";
+  import { HashRouter } from "mee-components";
+
+  const initSignUpSoon = () => {
+    checkUser(true, true);
+  };
+
+  HashRouter.initPageListeners("sign-up-soon", initSignUpSoon, "Sign Up");
+</script>
