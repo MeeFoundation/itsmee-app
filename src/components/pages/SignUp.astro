@@ -5,6 +5,7 @@ import {
   ButtonLink,
   Input,
   PasswordInput,
+  VerificationCode,
 } from "mee-components";
 ---
 
@@ -74,16 +75,7 @@ import {
         formId="sign-up-form-2"
         className="hidden"
       >
-        <Input
-          className="w-full"
-          id="sign_up_verify_code"
-          dataType="verify_code"
-          type="text"
-          label="Enter code"
-          size="lg"
-          labelPosition="inside"
-          required
-        />
+        <VerificationCode id="sign_up_verify_code" size="s" />
         <Button id="check-code" type="button" className="w-full"
           >Check Code</Button
         >
@@ -268,12 +260,13 @@ import {
 
       const submitForm2 = (inputs: NodeListOf<HTMLInputElement>) => {
         const formValid = Validation.validateForm(inputs);
+
         if (formValid) {
-          const passwordData = Array.from(inputs).reduce(
-            (acc, input) => ({ ...acc, [input.id]: input.value }),
-            { sign_up_verify_code: "" }
+          const verificationCode = Array.from(inputs).reduce(
+            (accumulator, currentValue) => accumulator + currentValue.value,
+            ""
           );
-          data.verify_code = passwordData.sign_up_verify_code;
+          data.verify_code = verificationCode;
           changeForm(secondForm, thirdForm, true);
         }
       };
