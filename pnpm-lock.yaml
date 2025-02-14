@@ -23,9 +23,12 @@ importers:
       fsevents:
         specifier: ^2.3.3
         version: 2.3.3
+      jotai:
+        specifier: ^2.12.0
+        version: 2.12.0
       mee-components:
-        specifier: ^0.0.57
-        version: 0.0.57(@astrojs/starlight-tailwind@3.0.0(@astrojs/starlight@0.30.6(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0)))(@astrojs/tailwind@5.1.3(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0))(tailwindcss@3.4.8))(tailwindcss@3.4.8))(@astrojs/starlight@0.30.6(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0)))(@rollup/rollup-darwin-arm64@4.28.1)(@rollup/rollup-linux-x64-gnu@4.28.1)(jiti@1.21.6)(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(rollup@4.28.1)(yaml@2.5.0)
+        specifier: ^0.0.58
+        version: 0.0.58(@astrojs/starlight-tailwind@3.0.0(@astrojs/starlight@0.30.6(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0)))(@astrojs/tailwind@5.1.3(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0))(tailwindcss@3.4.8))(tailwindcss@3.4.8))(@astrojs/starlight@0.30.6(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0)))(@rollup/rollup-darwin-arm64@4.28.1)(@rollup/rollup-linux-x64-gnu@4.28.1)(jiti@1.21.6)(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(rollup@4.28.1)(yaml@2.5.0)
       queue-tick:
         specifier: ^1.0.1
         version: 1.0.1
@@ -85,6 +88,9 @@ packages:
   '@astrojs/internal-helpers@0.4.2':
     resolution: {integrity: sha512-EdDWkC3JJVcpGpqJAU/5hSk2LKXyG3mNGkzGoAuyK+xoPHbaVdSuIWoN1QTnmK3N/gGfaaAfM8gO2KDCAW7S3w==}
 
+  '@astrojs/internal-helpers@0.5.1':
+    resolution: {integrity: sha512-M7rAge1n2+aOSxNvKUFa0u/KFn0W+sZy7EW91KOSERotm2Ti8qs+1K0xx3zbOxtAVrmJb5/J98eohVvvEqtNkw==}
+
   '@astrojs/language-server@2.15.4':
     resolution: {integrity: sha512-JivzASqTPR2bao9BWsSc/woPHH7OGSGc9aMxXL4U6egVTqBycB3ZHdBJPuOCVtcGLrzdWTosAqVPz1BVoxE0+A==}
     hasBin: true
@@ -109,10 +115,10 @@ packages:
     peerDependencies:
       astro: ^5.0.0
 
-  '@astrojs/node@9.0.2':
-    resolution: {integrity: sha512-MFFYRa5yQEBegKrSUPMeKnjDMB4okTrkVRA40/mU3ADKrKY5VV3af0LS+NYkH9pFOvj/OsPbdeQVxQ0jI3f6aQ==}
+  '@astrojs/node@9.1.0':
+    resolution: {integrity: sha512-7fDsawWci/j4prDVVwOFGuArG+YK+io54/5ksKL+lbSZ8xA4h6TB36RA4INmNatralEOKlgCxmbZdwewYcsFWA==}
     peerDependencies:
-      astro: ^5.0.0
+      astro: ^5.3.0
 
   '@astrojs/prism@3.2.0':
     resolution: {integrity: sha512-GilTHKGCW6HMq7y3BUv9Ac7GMe/MO9gi9GW62GzKtth0SwukCu/qp2wLiGpEujhY+VVhaG9v7kv/5vFzvf4NYw==}
@@ -159,8 +165,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  '@babel/runtime@7.26.7':
-    resolution: {integrity: sha512-AOPI3D+a8dXnja+iwsUqGRjr1BbZIe771sXdapOtYI531gSqpi92vXivKcq2asu/DFpdl1ceFAKZyRzK2PCVcQ==}
+  '@babel/runtime@7.26.9':
+    resolution: {integrity: sha512-aA63XwOkcl4xxQa3HjPMqOP6LiK0ZDv3mUPYEFXkpHbaFjtGggE1A61FjFzJnB+p7/oy2gA8E+rcBNl/zC1tMg==}
     engines: {node: '>=6.9.0'}
 
   '@babel/types@7.26.3':
@@ -1773,6 +1779,18 @@ packages:
     resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
     hasBin: true
 
+  jotai@2.12.0:
+    resolution: {integrity: sha512-j5B4NmUw8gbuN7AG4NufWw00rfpm6hexL2CVhKD7juoP2YyD9FEUV5ar921JMvadyrxQhU1NpuKUL3QfsAlVpA==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=17.0.0'
+      react: '>=17.0.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react:
+        optional: true
+
   js-yaml@3.14.1:
     resolution: {integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==}
     hasBin: true
@@ -1919,8 +1937,8 @@ packages:
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
 
-  mee-components@0.0.57:
-    resolution: {integrity: sha512-cJsmKF21Z0rYGXjq9z7Wn92quvf3Tb6+vTd2Vfw7uqTjIpmDV6WcbNm6E7x78rK1GgExtx+qgFjWomrTOrGlyw==}
+  mee-components@0.0.58:
+    resolution: {integrity: sha512-qA8pzKw4/mRyepEy5Jg9HuHhRcduZ5DgLC37yIy/1Uw5Nel9Gmt97I3eVrtuvlqxY7TmLeGvrdM9TwzRsjqqHQ==}
     peerDependencies:
       '@astrojs/starlight': ^0.30.3
       '@astrojs/starlight-tailwind': ^3.0.0
@@ -3071,6 +3089,8 @@ snapshots:
 
   '@astrojs/internal-helpers@0.4.2': {}
 
+  '@astrojs/internal-helpers@0.5.1': {}
+
   '@astrojs/language-server@2.15.4(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.5.4)':
     dependencies:
       '@astrojs/compiler': 2.10.3
@@ -3165,8 +3185,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/node@9.0.2(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0))':
+  '@astrojs/node@9.1.0(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0))':
     dependencies:
+      '@astrojs/internal-helpers': 0.5.1
       astro: 5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0)
       send: 1.1.0
       server-destroy: 1.0.1
@@ -3253,7 +3274,7 @@ snapshots:
     dependencies:
       '@babel/types': 7.26.3
 
-  '@babel/runtime@7.26.7':
+  '@babel/runtime@7.26.9':
     dependencies:
       regenerator-runtime: 0.14.1
 
@@ -4912,7 +4933,7 @@ snapshots:
 
   i18next@23.16.8:
     dependencies:
-      '@babel/runtime': 7.26.7
+      '@babel/runtime': 7.26.9
 
   ignore@5.3.1: {}
 
@@ -4984,6 +5005,8 @@ snapshots:
       '@pkgjs/parseargs': 0.11.0
 
   jiti@1.21.6: {}
+
+  jotai@2.12.0: {}
 
   js-yaml@3.14.1:
     dependencies:
@@ -5246,10 +5269,10 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
 
-  mee-components@0.0.57(@astrojs/starlight-tailwind@3.0.0(@astrojs/starlight@0.30.6(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0)))(@astrojs/tailwind@5.1.3(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0))(tailwindcss@3.4.8))(tailwindcss@3.4.8))(@astrojs/starlight@0.30.6(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0)))(@rollup/rollup-darwin-arm64@4.28.1)(@rollup/rollup-linux-x64-gnu@4.28.1)(jiti@1.21.6)(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(rollup@4.28.1)(yaml@2.5.0):
+  mee-components@0.0.58(@astrojs/starlight-tailwind@3.0.0(@astrojs/starlight@0.30.6(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0)))(@astrojs/tailwind@5.1.3(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0))(tailwindcss@3.4.8))(tailwindcss@3.4.8))(@astrojs/starlight@0.30.6(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0)))(@rollup/rollup-darwin-arm64@4.28.1)(@rollup/rollup-linux-x64-gnu@4.28.1)(jiti@1.21.6)(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(rollup@4.28.1)(yaml@2.5.0):
     dependencies:
       '@astrojs/check': 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.5.4)
-      '@astrojs/node': 9.0.2(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0))
+      '@astrojs/node': 9.1.0(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0))
       '@astrojs/starlight': 0.30.6(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0))
       '@astrojs/starlight-tailwind': 3.0.0(@astrojs/starlight@0.30.6(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0)))(@astrojs/tailwind@5.1.3(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0))(tailwindcss@3.4.8))(tailwindcss@3.4.8)
       '@astrojs/tailwind': 5.1.3(astro@5.0.4(jiti@1.21.6)(rollup@4.28.1)(typescript@5.5.4)(yaml@2.5.0))(tailwindcss@3.4.8)

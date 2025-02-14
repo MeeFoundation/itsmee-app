@@ -1,0 +1,54 @@
+---
+import { Button, Avatar } from "mee-components";
+---
+
+<div
+  class="absolute right-4 top-20 z-100 hidden flex-col items-start rounded-lg border border-solid border-brand-300 bg-white p-0 shadow-2"
+  id="profile-modal"
+>
+  <div
+    class="flex flex-col items-center gap-4 rounded-t-lg border-b border-brand-300 bg-brand-50 px-6 py-8"
+  >
+    <div class="flex flex-col items-center gap-2 p-0">
+      <Avatar size="xl" id="profile-image" isActive={true} />
+      <div class="flex flex-col items-center p-0">
+        <p class="text-center text-sm leading-5 tracking-0.02 text-gray-700">
+          Current profile
+        </p>
+        <p
+          class="text-center text-xl font-semibold tracking-0.02 text-gray-900"
+          id="profile-name"
+        >
+        </p>
+      </div>
+    </div>
+    <div>
+      <Button
+        id="edit-profile"
+        type="button"
+        buttonType="primary"
+        style="outlined">Edit profile</Button
+      >
+    </div>
+  </div>
+  <div class="w-full border-b border-gray-300 text-gray-800">
+    <div
+      class="flex h-14 cursor-pointer flex-row items-center gap-2 px-6 py-4 hover:bg-gray-100"
+    >
+      <div><i class="bi bi-gear text-xl"></i></div>Settings
+    </div>
+    <div
+      class="flex h-14 cursor-pointer flex-row items-center gap-2 px-6 py-4 hover:bg-gray-100"
+    >
+      <div><i class="bi bi-send text-xl"></i></div>Send Feedback
+    </div>
+  </div>
+  <div class="w-full border-b-gray-300 text-gray-800">
+    <div
+      id="sign-out"
+      class="flex h-14 cursor-pointer flex-row items-center gap-2 rounded-b-lg px-6 py-4 hover:bg-gray-100"
+    >
+      <div><i class="bi bi-box-arrow-left text-xl"></i></div>Sign out
+    </div>
+  </div>
+</div>

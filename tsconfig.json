@@ -30,7 +30,10 @@
       "@layouts/*": ["layouts/*"],
       "@pages/*": ["pages/*"],
       "@styles/*": ["styles/*"],
-      "@utils/*": ["utils/*"]
+      "@api/*": ["api/*"],
+      "@utils/*": ["utils/*"],
+      "@scripts/*": ["scripts/*"],
+      "@store/*": ["store/*"]
     }
   },
   "extends": "astro/tsconfigs/strict"

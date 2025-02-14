@@ -15,34 +15,46 @@ import { Route } from "mee-components";
 
 <Layout title="Welcome to Mee">
   <div id="route-content"></div>
-  <Route id="index" route="" withoutDarkTheme={true}><IndexPage /></Route>
-  <Route id="connections" route="connections" withoutDarkTheme={true}
+  <Route id="index" route="" withoutDarkTheme isUserPage><IndexPage /></Route>
+  <Route id="connections" route="connections" withoutDarkTheme isUserPage
     ><ConnectionsList /></Route
   >
   <Route
     id="connections-item"
     route="^connections\/(\\d*)\\/?$"
-    regexRoute={true}
+    regexRoute
+    isUserPage
     params={["connection-id"]}
-    withoutDarkTheme={true}><ConnectionItem /></Route
+    withoutDarkTheme><ConnectionItem /></Route
   >
-  <Route id="sign-up" route="sign-up" withoutDarkTheme={true}><SignUp /></Route>
-  <Route id="sign-in" route="sign-in" withoutDarkTheme={true}><SignIn /></Route>
-  <Route id="sign-up-soon" route="sign-up-soon" withoutDarkTheme={true}><SignUpSoon /></Route>
-  <Route id="restore-password" route="restore-password" withoutDarkTheme={true}
+  <Route id="sign-up" route="sign-up" withoutDarkTheme><SignUp /></Route>
+  <Route id="sign-in" route="sign-in" withoutDarkTheme><SignIn /></Route>
+  <Route id="sign-up-soon" route="sign-up-soon" withoutDarkTheme
+    ><SignUpSoon /></Route
+  >
+  <Route id="restore-password" route="restore-password" withoutDarkTheme
     ><RestorePassword /></Route
   >
-  <Route id="forgot-password" route="forgot-password" withoutDarkTheme={true}
+  <Route id="forgot-password" route="forgot-password" withoutDarkTheme
     ><ForgotPassword /></Route
   >
   <Route
     id="create-connection"
     route="create-connection"
-    withoutDarkTheme={true}><CreateConnection /></Route
+    isUserPage
+    withoutDarkTheme><CreateConnection /></Route
   >
-  <Route id="not-found" route="404" withoutDarkTheme={true}><NotFound /></Route>
+  <Route id="not-found" route="404" withoutDarkTheme><NotFound /></Route>
 </Layout>
 <script>
+  import { setConnectionsData } from "@store/ConnectionsStore";
+  import { setUserData } from "@store/UserStore";
+  import { getConnections, getUser } from "api/api";
   import { HashRouter } from "mee-components";
   HashRouter.initRouter();
+
+  const randomUser = await getUser();
+  setUserData(randomUser);
+  const connections = await getConnections();
+  setConnectionsData(connections);
 </script>
